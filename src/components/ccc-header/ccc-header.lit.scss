@@ -1,0 +1,97 @@
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+.hidden {
+  display: none;
+}
+
+.root {
+  display: flex;
+  align-items: center;
+  height: 100%;
+
+  background-color: var(--sl-color-primary-900);
+
+  #menu-button {
+    flex: 0 0 auto;
+    color: var(--sl-color-neutral-0);
+    font-size: var(--sl-font-size-large);
+  }
+
+  .app-name {
+    flex: 0 0 auto;
+    color: var(--sl-color-neutral-0);
+    font-size: var(--sl-font-size-large);
+    font-weight: var(--sl-font-weight-bold);
+    margin-top: -3px;
+  }
+
+  sl-input {
+    flex: 1 1 auto;
+    margin-left: var(--sl-spacing-2x-large);
+    margin-right: var(--sl-spacing-3x-large);
+  }
+
+  sl-drawer {
+    sl-tab-group {
+      sl-tab {
+        sl-icon {
+          margin-right: var(--sl-spacing-2x-small);
+        }
+      }
+
+      sl-tab-panel {
+        .file-list {
+          margin-top: var(--sl-spacing-small);
+          color: var(--text-base);
+
+          .file-list-root {
+            border-radius: var(--sl-spacing-2x-small);
+            border: 1px solid var(--sl-color-neutral-300);
+            padding: var(--sl-spacing-x-small) 0;
+
+            .file-list-item {
+              cursor: pointer;
+              padding: var(--sl-spacing-2x-small) var(--sl-spacing-small);
+
+              display: flex;
+              align-items: center;
+              gap: var(--sl-spacing-x-small);
+
+              &:hover {
+                background-color: var(--sl-color-primary-100);
+              }
+
+              .file-name {
+                flex: 1 1 auto;
+                font-size: var(--sl-font-size-small);
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+              }
+
+              sl-dropdown {
+                flex: 0 0 auto;
+
+                .delete {
+                  * {
+                    color: var(--sl-color-danger-600);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

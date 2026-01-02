@@ -1,0 +1,52 @@
+:host {
+  /* メインのミントカラー（Primary）をEmeraldに設定 */
+  --sl-color-primary-50: var(--sl-color-emerald-50);
+  --sl-color-primary-100: var(--sl-color-emerald-100);
+  --sl-color-primary-200: var(--sl-color-emerald-200);
+  --sl-color-primary-300: var(--sl-color-emerald-300);
+  --sl-color-primary-400: var(--sl-color-emerald-400);
+  --sl-color-primary-500: var(--sl-color-emerald-500);
+  --sl-color-primary-600: var(--sl-color-emerald-600); /* これが基本のミント */
+  --sl-color-primary-700: var(--sl-color-emerald-700);
+  --sl-color-primary-800: var(--sl-color-emerald-800);
+  --sl-color-primary-900: var(--sl-color-emerald-900);
+
+  /* 全体のフォントと背景 */
+  --sl-input-font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", sans-serif;
+  --body-bg: var(--sl-color-neutral-50); /* 薄いグレーの背景 */
+  --text-base: var(--sl-color-neutral-900);
+
+  background-color: var(--body-bg);
+  color: var(--text-base);
+  font-family: var(--sl-input-font-family);
+
+  margin: 0;
+
+  display: block;
+  height: 100vh;
+  width: 100vw;
+}
+
+.ccc-container {
+  display: grid;
+  grid-template-rows: 50px 1fr 30px;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "ccc-header"
+    "ccc-main"
+    "ccc-footer";
+  gap: var(--sl-spacing-2x-small) 0;
+  height: 100%;
+
+  .ccc-header {
+    grid-area: ccc-header;
+  }
+
+  .ccc-main {
+    grid-area: ccc-main;
+  }
+
+  .ccc-footer {
+    grid-area: ccc-footer;
+  }
+}

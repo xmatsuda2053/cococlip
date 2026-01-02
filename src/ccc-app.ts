@@ -8,6 +8,11 @@ import {
 } from "lit";
 import { customElement, state, property, query } from "lit/decorators.js";
 import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.js";
+import { registerIconLibrary } from "@shoelace-style/shoelace/dist/utilities/icon-library.js";
+import { icons } from "@assets/icons";
+
+import "@plugins/shoelace";
+import "@components/index";
 
 import "@shoelace-style/shoelace/dist/themes/light.css";
 import styles from "./ccc-app.lit.scss?inline";
@@ -31,6 +36,14 @@ export class CccApp extends LitElement {
    */
   constructor() {
     super();
+    registerIconLibrary("ccc", {
+      resolver: (name: string) => {
+        if (name in icons) {
+          return `data:image/svg+xml;utf8,${encodeURIComponent(icons[name])}`;
+        }
+        return "";
+      },
+    });
   }
 
   /**
@@ -74,6 +87,23 @@ export class CccApp extends LitElement {
    * @memberof CccApp
    */
   protected render(): HTMLTemplateResult {
-    return html``;
+    return html`<div class="ccc-container">
+      <div class="ccc-header" @clickFile=${this._handleClickFile}>
+        <ccc-header></ccc-header>
+      </div>
+      <div class="ccc-main">main</div>
+      <div class="ccc-footer">footer</div>
+    </div>`;
+  }
+
+  /**
+   * リストのファイルクリック時のイベントを定義します。
+   *
+   * @private
+   * @param {CustomEvent} e
+   * @memberof CccApp
+   */
+  private _handleClickFile(e: CustomEvent) {
+    console.log(e.detail);
   }
 }
