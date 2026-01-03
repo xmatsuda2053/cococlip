@@ -211,7 +211,9 @@ export class CccHeader extends LitElement {
               </ul>
             </div>
           </sl-tab-panel>
-          <sl-tab-panel name="about"> test </sl-tab-panel>
+          <sl-tab-panel name="about">
+            <app-about></app-about>
+          </sl-tab-panel>
         </sl-tab-group>
       </sl-drawer>
     </div> `;
