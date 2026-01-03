@@ -10,10 +10,6 @@ li {
   background: transparent;
 }
 
-.hidden {
-  display: none;
-}
-
 .root {
   display: flex;
   align-items: center;
@@ -46,50 +42,6 @@ li {
       sl-tab {
         sl-icon {
           margin-right: var(--sl-spacing-2x-small);
-        }
-      }
-
-      sl-tab-panel {
-        .file-list {
-          margin-top: var(--sl-spacing-small);
-          color: var(--text-base);
-
-          .file-list-root {
-            border-radius: var(--sl-spacing-2x-small);
-            border: 1px solid var(--sl-color-neutral-300);
-            padding: var(--sl-spacing-x-small) 0;
-
-            .file-list-item {
-              cursor: pointer;
-              padding: var(--sl-spacing-2x-small) var(--sl-spacing-small);
-
-              display: flex;
-              align-items: center;
-              gap: var(--sl-spacing-x-small);
-
-              &:hover {
-                background-color: var(--sl-color-primary-100);
-              }
-
-              .file-name {
-                flex: 1 1 auto;
-                font-size: var(--sl-font-size-small);
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: nowrap;
-              }
-
-              sl-dropdown {
-                flex: 0 0 auto;
-
-                .delete {
-                  * {
-                    color: var(--sl-color-danger-600);
-                  }
-                }
-              }
-            }
-          }
         }
       }
     }
