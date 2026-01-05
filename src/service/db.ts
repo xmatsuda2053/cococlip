@@ -19,12 +19,34 @@ export class CccGoDB extends Dexie {
   }
 
   /**
-   * メタデータ覧を取得します。
+   * メタデータ一覧を取得します。
    * @return {*}  {Promise<FileMeta[]>}
    * @memberof CccGoDB
    */
   async selectMeta(): Promise<FileMeta[]> {
     return await db.fileMeta.toArray();
+  }
+
+  /**
+   * 指定したIDのメタデータを取得します。
+   *
+   * @param {number} id
+   * @return {*}  {(Promise<FileMeta | undefined>)}
+   * @memberof CccGoDB
+   */
+  async selectMetaById(id: number): Promise<FileMeta | undefined> {
+    return await db.fileMeta.get(id);
+  }
+
+  /**
+   * 指定したMetaIDのファイルデータを取得します。
+   *
+   * @param {number} metaId
+   * @return {*}  {(Promise<FileData | undefined>)}
+   * @memberof CccGoDB
+   */
+  async selectDataByMetaId(metaId: number): Promise<FileData[]> {
+    return await db.fileData.where("metaId").equals(metaId).toArray();
   }
 
   /**

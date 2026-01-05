@@ -13,7 +13,6 @@ import { handleRequestClose } from "@service/utils";
 
 import "@shoelace-style/shoelace/dist/themes/light.css";
 import type SlDrawer from "@shoelace-style/shoelace/dist/components/drawer/drawer.js";
-import sharedStyles from "@assets/styles/shared.lit.scss?inline";
 import styles from "./ccc-header.lit.scss?inline";
 
 setBasePath("/");
@@ -26,9 +25,6 @@ export class CccHeader extends LitElement {
    * @memberof CccHeader
    */
   static styles = [
-    css`
-      ${unsafeCSS(sharedStyles)}
-    `,
     css`
       ${unsafeCSS(styles)}
     `,
@@ -109,6 +105,7 @@ export class CccHeader extends LitElement {
         label="Menu"
         placement="start"
         @sl-request-close=${handleRequestClose}
+        @clickFile=${this._handleClickFile}
       >
         <sl-tab-group>
           <sl-tab slot="nav" panel="file">
@@ -128,5 +125,16 @@ export class CccHeader extends LitElement {
         </sl-tab-group>
       </sl-drawer>
     </div> `;
+  }
+
+  /**
+   * ファイル一覧のアイテムクリック時にドロワーをとじます。
+   *
+   * @private
+   * @memberof CccHeader
+   */
+  private _handleClickFile() {
+    handleRequestClose();
+    this.CccDrawerMenu.hide();
   }
 }

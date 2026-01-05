@@ -21,6 +21,16 @@ setBasePath("/");
 @customElement("ccc-app")
 export class CccApp extends LitElement {
   /**
+   * 表示対象のファイルのID
+   *
+   * @type {(number | undefined)}
+   * @memberof CccTable
+   */
+  @property({ type: Number, hasChanged: () => true }) metaId?:
+    | number
+    | undefined = undefined;
+
+  /**
    * スタイルシートを適用
    *
    * @static
@@ -91,7 +101,9 @@ export class CccApp extends LitElement {
       <div class="ccc-header" @clickFile=${this._handleClickFile}>
         <ccc-header></ccc-header>
       </div>
-      <div class="ccc-main">main</div>
+      <div class="ccc-main">
+        <ccc-table .metaId=${this.metaId}></ccc-table>
+      </div>
       <div class="ccc-footer">footer</div>
     </div>`;
   }
@@ -104,6 +116,6 @@ export class CccApp extends LitElement {
    * @memberof CccApp
    */
   private _handleClickFile(e: CustomEvent) {
-    console.log(e.detail);
+    this.metaId = e.detail.metaId;
   }
 }

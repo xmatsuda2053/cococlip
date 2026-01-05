@@ -9,12 +9,7 @@ import {
 import { customElement, state, property, query } from "lit/decorators.js";
 import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.js";
 
-import {
-  handleRequestClose,
-  isNotBlank,
-  toastSuccess,
-  toastDanger,
-} from "@service/utils";
+import { isNotBlank, toastSuccess, toastDanger } from "@service/utils";
 import { emit } from "../shared/event";
 import { db } from "@service/db";
 import type { FileData } from "@/models/FileData";
