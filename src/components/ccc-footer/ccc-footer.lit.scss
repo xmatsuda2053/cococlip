@@ -7,9 +7,17 @@
 
   display: flex;
   align-items: center;
+  gap: var(--sl-spacing-medium);
 
-  span {
-    margin-top: -2px;
-    margin-left: var(--sl-spacing-2x-small);
+  font-size: var(--sl-font-size-small);
+
+  .item {
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-top: -2px;
+      margin-left: var(--sl-spacing-2x-small);
+    }
   }
 }

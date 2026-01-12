@@ -6,8 +6,11 @@ import {
   PropertyValues,
   HTMLTemplateResult,
 } from "lit";
-import { customElement, state, property, query } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.js";
+import { formatDate } from "@service/utils";
+
+import type { FileMeta } from "@/models/FileMeta";
 
 import "@shoelace-style/shoelace/dist/themes/light.css";
 import styles from "./ccc-footer.lit.scss?inline";
@@ -28,10 +31,18 @@ export class CccFooter extends LitElement {
   /**
    * ファイル名
    *
-   * @type {string}
+   * @type {Object}
    * @memberof CccTable
    */
-  @property({ type: String }) fileName?: string = "";
+  @property({ type: Object }) fileMeta?: FileMeta | undefined = undefined;
+
+  /**
+   * 検索結果件数
+   *
+   * @type {number}
+   * @memberof CccFooter
+   */
+  @property({ type: Number }) hitCount?: number = 0;
 
   /**
    * Creates an instance of CccFooter.
@@ -82,9 +93,27 @@ export class CccFooter extends LitElement {
    * @memberof CccFooter
    */
   protected render(): HTMLTemplateResult {
+    if (!this.fileMeta) {
+      return html`<div id="root"></div>`;
+    }
+
     return html`<div id="root">
-      <sl-icon library="ccc" name="table"></sl-icon>
-      <span>${this.fileName}</span>
+      <div class="item">
+        <sl-icon library="ccc" name="filetype-csv"></sl-icon>
+        <span>${this.fileMeta?.fileName}</span>
+      </div>
+      <div class="item">
+        <sl-icon library="ccc" name="calendar3-event"></sl-icon>
+        <span>${formatDate(this.fileMeta?.createdAt)}</span>
+      </div>
+      <div class="item">
+        <sl-icon library="ccc" name="table"></sl-icon>
+        <span>${this.fileMeta?.Count.toLocaleString()} lines</span>
+      </div>
+      <div class="item">
+        <sl-icon library="ccc" name="search"></sl-icon>
+        <span>${this.hitCount?.toLocaleString()} hits</span>
+      </div>
     </div>`;
   }
 }

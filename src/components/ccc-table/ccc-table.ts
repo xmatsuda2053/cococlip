@@ -6,14 +6,13 @@ import {
   PropertyValues,
   HTMLTemplateResult,
 } from "lit";
-import { customElement, state, property } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
 import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.js";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 import favicon from "@assets/favicon/favicon.svg?raw";
 
 import { toastSuccess } from "@service/utils";
-import { db } from "@service/db";
 import type { FileData } from "@/models/FileData";
 import type { FileMeta } from "@/models/FileMeta";
 
@@ -26,39 +25,24 @@ setBasePath("/");
 @customElement("ccc-table")
 export class CccTable extends LitElement {
   /**
-   * 表示対象のファイルのID
-   *
-   * @type {(number | undefined)}
-   * @memberof CccTable
-   */
-  @property({ type: Number, hasChanged: () => true }) metaId?:
-    | number
-    | undefined = undefined;
-
-  /**
-   * 検索文字列
-   *
-   * @type {string}
-   * @memberof CccTable
-   */
-  @property({ type: String, hasChanged: () => true }) searchText?: string = "";
-
-  /**
    * 表示対象のファイルのメタデータ
    *
+   * @private
    * @type {(FileMeta | undefined)}
    * @memberof CccTable
    */
-  @state() private _fileMeta: FileMeta | undefined = undefined;
+  @property({ type: Object, hasChanged: () => true }) fileMeta:
+    | FileMeta
+    | undefined = undefined;
 
   /**
    * 表示対象のファイルのデータ
    *
    * @private
-   * @type {(FileData | undefined)}
+   * @type {FileData[]}
    * @memberof CccTable
    */
-  @state() private _fileData: FileData[] = [];
+  @property({ type: Array, hasChanged: () => true }) fileData: FileData[] = [];
 
   /**
    * スタイルシートを適用
@@ -112,17 +96,6 @@ export class CccTable extends LitElement {
    */
   protected async willUpdate(_changedProperties: PropertyValues) {
     super.willUpdate(_changedProperties);
-
-    if (
-      (_changedProperties.has("metaId") ||
-        _changedProperties.has("searchText")) &&
-      this.metaId !== undefined &&
-      this.metaId !== 0
-    ) {
-      const id: number = Number(this.metaId);
-      this._fileMeta = await db.selectMetaById(id);
-      this._fileData = await db.selectDataByMetaId(id, this.searchText);
-    }
   }
 
   /**
@@ -135,7 +108,7 @@ export class CccTable extends LitElement {
    * @memberof CccTable
    */
   protected render(): HTMLTemplateResult {
-    if (!this.metaId) {
+    if (!this.fileMeta) {
       return html`<div id="app_name">
         ${unsafeSVG(favicon)}<span>CoCo-Clip</span>
       </div>`;
@@ -145,15 +118,15 @@ export class CccTable extends LitElement {
       <table>
         <thead>
           <tr>
-            ${this._fileMeta?.headers?.map((f) => html`<th>${f}</th>`)}
+            ${this.fileMeta?.headers?.map((f) => html`<th>${f}</th>`)}
           </tr>
         </thead>
         <tbody>
           ${repeat(
-            this._fileData,
+            this.fileData,
             (d) => d.id,
             (d) => html` <tr>
-              ${this._fileMeta?.headers?.map(
+              ${this.fileMeta?.headers?.map(
                 (h: string) =>
                   html` <td @click=${this._handleClickTd}>${d.data[h]}</td>`
               )}

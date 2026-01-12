@@ -11,6 +11,10 @@ import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.j
 import { registerIconLibrary } from "@shoelace-style/shoelace/dist/utilities/icon-library.js";
 import { icons } from "@assets/icons";
 
+import { db } from "@service/db";
+import type { FileData } from "@/models/FileData";
+import type { FileMeta } from "@/models/FileMeta";
+
 import "@plugins/shoelace";
 import "@components/index";
 
@@ -29,20 +33,28 @@ export class CccApp extends LitElement {
   @state() metaId?: number | undefined = undefined;
 
   /**
-   * 表示対象のファイル名
-   *
-   * @type {string}
-   * @memberof CccApp
-   */
-  @state() fileName?: string = "";
-
-  /**
    * 検索文字列
    *
    * @type {string}
    * @memberof CccApp
    */
   @state() searchText?: string = "";
+
+  /**
+   * 表示対象のファイルのメタデータ
+   *
+   * @type {(FileMeta | undefined)}
+   * @memberof CccApp
+   */
+  @state() _fileMeta?: FileMeta | undefined = undefined;
+
+  /**
+   * 表示対象のファイルのデータ
+   *
+   * @type {FileData[]}
+   * @memberof CccApp
+   */
+  @state() _fileData?: FileData[] = [];
 
   /**
    * スタイルシートを適用
@@ -119,14 +131,29 @@ export class CccApp extends LitElement {
       </div>
       <div class="ccc-main">
         <ccc-table
-          .metaId=${this.metaId}
-          .searchText=${this.searchText}
+          .fileMeta=${this._fileMeta}
+          .fileData=${this._fileData}
         ></ccc-table>
       </div>
       <div class="ccc-footer">
-        <ccc-footer .fileName=${this.fileName}></ccc-footer>
+        <ccc-footer
+          .fileMeta=${this._fileMeta}
+          .hitCount=${this._fileData?.length}
+        ></ccc-footer>
       </div>
     </div>`;
+  }
+
+  /**
+   * 対象ファイルのデータを取得する。
+   *
+   * @private
+   * @memberof CccApp
+   */
+  private async _getData() {
+    const id: number = Number(this.metaId);
+    this._fileMeta = await db.selectMetaById(id);
+    this._fileData = await db.selectDataByMetaId(id, this.searchText);
   }
 
   /**
@@ -138,7 +165,7 @@ export class CccApp extends LitElement {
    */
   private async _handleClickFile(e: CustomEvent) {
     this.metaId = e.detail.metaId;
-    this.fileName = e.detail.fileName;
+    await this._getData();
   }
 
   /**
@@ -148,7 +175,8 @@ export class CccApp extends LitElement {
    * @param {CustomEvent} e
    * @memberof CccApp
    */
-  private _handleSearchTextChange(e: CustomEvent) {
+  private async _handleSearchTextChange(e: CustomEvent) {
     this.searchText = e.detail.searchText;
+    await this._getData();
   }
 }

@@ -1,6 +1,38 @@
 import type { SlAlert } from "@shoelace-style/shoelace";
 
 /**
+ * 日付オブジェクトを指定されたフォーマットの文字列に変換します。
+ * * 使用可能なトークン: yyyy, MM, dd, HH, mm, ss
+ *
+ * @export
+ * @param {Date} [date] - 変換対象の日付オブジェクト。
+ * @param {string} [format="yyyy/MM/dd HH:mm:ss"] - フォーマット形式。
+ * @returns {string} フォーマット済みの日付文字列、または空文字。
+ */
+export function formatDate(
+  date?: Date,
+  format: string = "yyyy/MM/dd HH:mm:ss"
+): string {
+  if (!date) return "";
+
+  const pad = (num: number) => String(num).padStart(2, "0");
+
+  const values: { [key: string]: string | number } = {
+    yyyy: date.getFullYear(),
+    MM: pad(date.getMonth() + 1),
+    dd: pad(date.getDate()),
+    HH: pad(date.getHours()),
+    mm: pad(date.getMinutes()),
+    ss: pad(date.getSeconds()),
+  };
+
+  // 正規表現でトークンを一括置換
+  return format.replace(/yyyy|MM|dd|HH|mm|ss/g, (matched) =>
+    values[matched].toString()
+  );
+}
+
+/**
  * 現在フォーカスされている要素のフォーカスを解除（ブラー）します。
  * 主にダイアログやメニューを閉じる際、背後の要素にフォーカスが残るのを防ぐために使用します。
  */
