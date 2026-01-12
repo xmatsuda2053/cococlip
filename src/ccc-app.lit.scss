@@ -35,7 +35,7 @@
     "ccc-header"
     "ccc-main"
     "ccc-footer";
-  gap: var(--sl-spacing-2x-small) 0;
+  gap: 0 0;
   height: 100%;
 
   .ccc-header {
@@ -44,6 +44,11 @@
 
   .ccc-main {
     grid-area: ccc-main;
+    min-height: 0;
+    overflow: hidden;
+
+    margin: var(--sl-spacing-2x-small);
+    margin-right: 0;
   }
 
   .ccc-footer {

@@ -1,15 +1,9 @@
 .scrollable {
   overflow-y: scroll;
-  padding-right: var(--sl-spacing-x-small);
+  //padding-right: var(--sl-spacing-x-small);
 
   // Firefox用のスクロールバースタイル
-  scrollbar-width: thin;
   scrollbar-color: var(--sl-color-neutral-400) transparent;
-
-  // WebKit系ブラウザ用のスクロールバースタイル
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
 
   &::-webkit-scrollbar-track {
     background: transparent;
