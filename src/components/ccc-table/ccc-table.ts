@@ -110,7 +110,8 @@ export class CccTable extends LitElement {
   protected render(): HTMLTemplateResult {
     if (!this.fileMeta) {
       return html`<div id="app_name">
-        ${unsafeSVG(favicon)}<span>CoCo-Clip</span>
+        ${unsafeSVG(favicon)}
+        <div>CoCo-Clip</div>
       </div>`;
     }
 

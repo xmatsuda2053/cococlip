@@ -22,11 +22,13 @@
     height: 10rem;
   }
 
-  span {
+  div {
     font-size: 10rem;
     font-weight: var(--sl-font-weight-bold);
     margin-top: -10px;
     margin-left: 1rem;
+
+    color: var(--sl-color-primary-900);
   }
 }
 
