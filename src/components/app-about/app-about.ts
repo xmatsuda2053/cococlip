@@ -31,12 +31,12 @@ export class AppAbout extends LitElement {
       </div>
       <div class="description-area">
         <div class="text">version:</div>
-        <div class="badge"><sl-badge variant="primary">0.0.1</sl-badge></div>
+        <div class="badge"><sl-badge variant="primary">1.0.0</sl-badge></div>
       </div>
       <div class="description-area">
         <div class="text">updatedAt:</div>
         <div class="badge">
-          <sl-badge variant="primary">2026.01.03</sl-badge>
+          <sl-badge variant="primary">2026.01.12</sl-badge>
         </div>
       </div>`;
   }
