@@ -7,6 +7,7 @@ import plusLg from "@assets/icons/plus-lg.svg?raw";
 import search from "@assets/icons/search.svg?raw";
 import sliders from "@assets/icons/sliders.svg?raw";
 import square from "@assets/icons/square.svg?raw";
+import table from "@assets/icons/table.svg?raw";
 import threeDots from "@assets/icons/three-dots.svg?raw";
 import trash3 from "@assets/icons/trash3.svg?raw";
 
@@ -20,6 +21,7 @@ export const icons: Record<string, string> = {
   search: search,
   sliders: sliders,
   square: square,
+  table: table,
   "three-dots": threeDots,
   trash3: trash3,
 };

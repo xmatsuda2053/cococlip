@@ -29,6 +29,14 @@ export class CccApp extends LitElement {
   @state() metaId?: number | undefined = undefined;
 
   /**
+   * 表示対象のファイル名
+   *
+   * @type {string}
+   * @memberof CccApp
+   */
+  @state() fileName?: string = "";
+
+  /**
    * 検索文字列
    *
    * @type {string}
@@ -115,7 +123,9 @@ export class CccApp extends LitElement {
           .searchText=${this.searchText}
         ></ccc-table>
       </div>
-      <div class="ccc-footer">footer</div>
+      <div class="ccc-footer">
+        <ccc-footer .fileName=${this.fileName}></ccc-footer>
+      </div>
     </div>`;
   }
 
@@ -126,8 +136,9 @@ export class CccApp extends LitElement {
    * @param {CustomEvent} e
    * @memberof CccApp
    */
-  private _handleClickFile(e: CustomEvent) {
+  private async _handleClickFile(e: CustomEvent) {
     this.metaId = e.detail.metaId;
+    this.fileName = e.detail.fileName;
   }
 
   /**

@@ -131,7 +131,7 @@ export class CccStorage extends LitElement {
             return html`<li class="file-list-item">
               <div
                 class="file-name"
-                @click=${() => this._handleClickFile(f.id)}
+                @click=${() => this._handleClickFile(f.id, f.fileName)}
               >
                 ${f.fileName}
               </div>
@@ -247,8 +247,8 @@ export class CccStorage extends LitElement {
    * @param {string} [id]
    * @memberof CccHeader
    */
-  private _handleClickFile(id: number | undefined) {
-    emit(this, "clickFile", { detail: { metaId: id } });
+  private _handleClickFile(id: number | undefined, fileName: string) {
+    emit(this, "clickFile", { detail: { metaId: id, fileName: fileName } });
   }
 
   /**

@@ -1,0 +1,15 @@
+#root {
+  height: 100%;
+  background-color: var(--sl-color-primary-900);
+  color: var(--sl-color-neutral-0);
+
+  padding: 0 var(--sl-spacing-2x-small);
+
+  display: flex;
+  align-items: center;
+
+  span {
+    margin-top: -2px;
+    margin-left: var(--sl-spacing-2x-small);
+  }
+}
