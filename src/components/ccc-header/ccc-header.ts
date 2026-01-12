@@ -97,9 +97,10 @@ export class CccHeader extends LitElement {
       >
       </sl-icon-button>
       <span class="app-name">CoCo-Clip</span>
-      <sl-input type="text" size="small" placeholder="search..." clearable>
-        <sl-icon slot="prefix" library="ccc" name="search"></sl-icon>
-      </sl-input>
+      <div class="search_area">
+        <ccc-search></ccc-search>
+      </div>
+
       <sl-drawer
         id="ccc-drawer-menu"
         label="Menu"
