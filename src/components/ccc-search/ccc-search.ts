@@ -54,9 +54,8 @@ export class CccSearch extends LitElement {
    * @memberof CccSearch
    */
   private _handleSearchTextChange() {
-    console.log(this.searchText.value);
     emit(this, "searchTextChange", {
-      detail: { value: this.searchText.value },
+      detail: { searchText: this.searchText.value },
     });
   }
 }

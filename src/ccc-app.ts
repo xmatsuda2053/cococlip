@@ -24,11 +24,17 @@ export class CccApp extends LitElement {
    * 表示対象のファイルのID
    *
    * @type {(number | undefined)}
-   * @memberof CccTable
+   * @memberof CccApp
    */
-  @property({ type: Number, hasChanged: () => true }) metaId?:
-    | number
-    | undefined = undefined;
+  @state() metaId?: number | undefined = undefined;
+
+  /**
+   * 検索文字列
+   *
+   * @type {string}
+   * @memberof CccApp
+   */
+  @state() searchText?: string = "";
 
   /**
    * スタイルシートを適用
@@ -99,10 +105,15 @@ export class CccApp extends LitElement {
   protected render(): HTMLTemplateResult {
     return html`<div class="ccc-container">
       <div class="ccc-header" @clickFile=${this._handleClickFile}>
-        <ccc-header></ccc-header>
+        <ccc-header
+          @searchTextChange=${this._handleSearchTextChange}
+        ></ccc-header>
       </div>
       <div class="ccc-main">
-        <ccc-table .metaId=${this.metaId}></ccc-table>
+        <ccc-table
+          .metaId=${this.metaId}
+          .searchText=${this.searchText}
+        ></ccc-table>
       </div>
       <div class="ccc-footer">footer</div>
     </div>`;
@@ -117,5 +128,16 @@ export class CccApp extends LitElement {
    */
   private _handleClickFile(e: CustomEvent) {
     this.metaId = e.detail.metaId;
+  }
+
+  /**
+   * 検索文字列変更時のイベントを定義します。
+   *
+   * @private
+   * @param {CustomEvent} e
+   * @memberof CccApp
+   */
+  private _handleSearchTextChange(e: CustomEvent) {
+    this.searchText = e.detail.searchText;
   }
 }

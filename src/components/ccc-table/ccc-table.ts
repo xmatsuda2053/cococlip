@@ -34,6 +34,14 @@ export class CccTable extends LitElement {
     | undefined = undefined;
 
   /**
+   * 検索文字列
+   *
+   * @type {string}
+   * @memberof CccTable
+   */
+  @property({ type: String, hasChanged: () => true }) searchText?: string = "";
+
+  /**
    * 表示対象のファイルのメタデータ
    *
    * @type {(FileMeta | undefined)}
@@ -104,13 +112,14 @@ export class CccTable extends LitElement {
     super.willUpdate(_changedProperties);
 
     if (
-      _changedProperties.has("metaId") &&
+      (_changedProperties.has("metaId") ||
+        _changedProperties.has("searchText")) &&
       this.metaId !== undefined &&
       this.metaId !== 0
     ) {
       const id: number = Number(this.metaId);
       this._fileMeta = await db.selectMetaById(id);
-      this._fileData = await db.selectDataByMetaId(id);
+      this._fileData = await db.selectDataByMetaId(id, this.searchText);
     }
   }
 

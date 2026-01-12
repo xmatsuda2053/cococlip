@@ -11,10 +11,10 @@ export class CccGoDB extends Dexie {
    * @memberof CccGoDB
    */
   constructor() {
-    super("CccGoDB");
+    super("CccDB");
     this.version(1).stores({
       fileMeta: "++id, fileName",
-      fileData: "++id, metaId, searchTerms",
+      fileData: "++id, metaId, *searchTerms",
     });
   }
 
@@ -42,11 +42,31 @@ export class CccGoDB extends Dexie {
    * 指定したMetaIDのファイルデータを取得します。
    *
    * @param {number} metaId
-   * @return {*}  {(Promise<FileData | undefined>)}
+   * @param {string} [searchText=""]
+   * @return {*}  {Promise<FileData[]>}
    * @memberof CccGoDB
    */
-  async selectDataByMetaId(metaId: number): Promise<FileData[]> {
-    return await db.fileData.where("metaId").equals(metaId).toArray();
+  async selectDataByMetaId(
+    metaId: number,
+    searchText: string = ""
+  ): Promise<FileData[]> {
+    if (searchText === "") {
+      return await db.fileData.where("metaId").equals(metaId).toArray();
+    }
+
+    const searchTexts = searchText
+      .split(/[\s\u3000]+/) // 半角スペース・全角スペースの連続に対応
+      .filter((keyword) => keyword.length > 0);
+
+    return await db.fileData
+      .where("metaId")
+      .equals(metaId)
+      .filter((file) => {
+        return searchTexts.every((text) =>
+          file.searchTerms.some((term) => term.includes(text))
+        );
+      })
+      .toArray();
   }
 
   /**
