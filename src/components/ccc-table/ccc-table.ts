@@ -9,6 +9,8 @@ import {
 import { customElement, state, property } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
 import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.js";
+import { unsafeSVG } from "lit/directives/unsafe-svg.js";
+import favicon from "@assets/favicon/favicon.svg?raw";
 
 import { toastSuccess } from "@service/utils";
 import { db } from "@service/db";
@@ -134,7 +136,9 @@ export class CccTable extends LitElement {
    */
   protected render(): HTMLTemplateResult {
     if (!this.metaId) {
-      return html`<p>データがありません</p>`;
+      return html`<div id="app_name">
+        ${unsafeSVG(favicon)}<span>CoCo-Clip</span>
+      </div>`;
     }
 
     return html`<div id="root" class="scrollable">
