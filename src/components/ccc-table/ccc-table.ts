@@ -6,7 +6,7 @@ import {
   PropertyValues,
   HTMLTemplateResult,
 } from "lit";
-import { customElement, state, property, query } from "lit/decorators.js";
+import { customElement, state, property } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
 import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.js";
 

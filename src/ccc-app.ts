@@ -6,7 +6,7 @@ import {
   PropertyValues,
   HTMLTemplateResult,
 } from "lit";
-import { customElement, state, property, query } from "lit/decorators.js";
+import { customElement, state } from "lit/decorators.js";
 import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.js";
 import { registerIconLibrary } from "@shoelace-style/shoelace/dist/utilities/icon-library.js";
 import { icons } from "@assets/icons";
